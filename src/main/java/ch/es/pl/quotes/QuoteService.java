@@ -9,12 +9,13 @@ import java.util.List;
 @Component
 public class QuoteService {
     @Autowired
-    private QuoteDAO quoteDAO;
+    private QuoteRepository quoteRepository;
 
     @Transactional
     public void allQuotesOrNothing(List<Quote> quotes) {
         for (Quote quote : quotes) {
-            quoteDAO.save(quote);
+            quoteRepository.save(new QuoteEntity(
+                    quote.getId(), quote.getAuthor(), quote.getCitation()));
         }
     }
 }
